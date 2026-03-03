@@ -21,13 +21,15 @@ A modular NLP-driven tool to screen and rank resumes against job descriptions. B
 ```text
 resume_screening/
 ├── data/
-│   ├── resumes/            # Directory for candidate resumes (.txt)
-│   └── jobs/               # Directory for job descriptions (.txt)
+│   ├── resumes/            # Candidate resumes (.txt)
+│   └── jobs/               # Job descriptions (.txt)
 ├── src/
-│   ├── preprocessing.py    # Text cleaning (stopwords, noise removal)
-│   └── matching.py         # TF-IDF and Semantic similarity engines
-├── main.py                # Command-line interface & orchestration
-└── requirements.txt       # Dependencies
+│   ├── preprocessing.py    # Text cleaning logic
+│   ├── matching.py         # TF-IDF & Semantic engines
+│   └── ner.py              # Named Entity Recognition
+├── screenshots/            # Visual demo images
+├── main.py                # Professional CLI orchestration
+└── requirements.txt       # Project dependencies
 ```
 
 ## 🚀 Getting Started
