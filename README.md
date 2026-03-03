@@ -6,6 +6,7 @@ A modular NLP-driven tool to screen and rank resumes against job descriptions. B
 - **Multi-Modal Matching**:
   - **TF-IDF Engine**: Exact keyword matching with custom skill-weighting (High Precision).
   - **Semantic Engine**: Sentence embeddings (BERT-based) to understand conceptual overlaps (e.g., "AI" vs "Artificial Intelligence").
+- **Named Entity Recognition (NER)**: Automatically extracts Organizations (Universities/Companies) and Locations to provide a structured candidate summary.
 - **Batch Processing**: Rank an entire folder of resumes in seconds.
 - **Explainable Scores**: Lists matched keywords for TF-IDF results.
 - **Configurable Priority**: Boost specific "must-have" skills to influence rankings.
@@ -70,6 +71,10 @@ Conceptual matching where the system understands that "AI" and "Artificial Intel
 ### 3. Batch Ranking
 The system ranking multiple resumes simultaneously and flagging the best candidates.
 ![Batch Ranking](screenshots/Screenshot%202026-03-03%20at%206.41.26 PM.png)
+
+### 4. Named Entity Recognition (NER)
+**The "Contextual Insight" Feature**: Even if a resume score is low due to keyword mismatches, the AI extracts key entities like **Organizations** and **Locations**. This ensures that high-potential candidates (e.g., those from Microsoft/Google) are caught even if their resume isn't keyword-optimized.
+![NER Extraction](screenshots/Screenshot%202026-03-03%20at%207.30.12 PM.png)
 
 ## 🧠 Design Philosophy
 This system addresses the "Black Box" problem in AI screening. By providing both a **Keyword matching** mode (for strict requirements) and a **Semantic mode** (for talent discovery), it gives recruiters a balanced toolkit.

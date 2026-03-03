@@ -4,6 +4,7 @@ import argparse
 from typing import Dict, List, Optional
 from src.preprocessing import clean_text
 from src.matching import compute_similarity, compute_semantic_similarity
+from src.ner import extract_entities
 
 # Default Priority Skills for Weighting (TF-IDF Mode only)
 DEFAULT_SKILL_WEIGHTS = {
@@ -43,6 +44,15 @@ def display_results(results: List[Dict], mode: str, top_n: int = 1):
             print(f"Matched Keywords: {matched_str}")
         else:
             print("Note: Semantic mode provides conceptual similarity (no keyword list).")
+
+        # Display Extracted Entities
+        if top.get('entities'):
+            orgs = top['entities']['organizations'][:3]
+            locs = top['entities']['locations'][:3]
+            if orgs:
+                print(f"Top Orgs: {', '.join(orgs)}")
+            if locs:
+                print(f"Locations: {', '.join(locs)}")
 
         print(f"Status: ", end="")
         if top['score'] > 0.4:
@@ -102,10 +112,14 @@ def run_screening(resume_input: str, job_path: str, mode: str, weights: Optional
                 # Filter for non-zero overlap in both docs
                 keywords = tfidf_df.loc[:, (tfidf_df.iloc[0] > 0) & (tfidf_df.iloc[1] > 0)].columns.tolist()
 
+            # Extract entities from raw text (better for NER context)
+            entities = extract_entities(resume_raw)
+
             results.append({
                 'filename': os.path.basename(res_path),
                 'score': score,
-                'keywords': keywords
+                'keywords': keywords,
+                'entities': entities
             })
         except Exception as e:
             print(f"Skipping {res_path} due to error: {e}")
