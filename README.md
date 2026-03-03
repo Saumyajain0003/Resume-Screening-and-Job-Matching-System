@@ -57,18 +57,19 @@ python3 main.py --resumes data/resumes/ --job data/jobs/sample_job.txt
 python3 main.py --mode semantic --resumes data/resumes/ --job data/jobs/sample_job.txt
 ```
 
-## 📊 Example Output
-```text
-============================================================
-RESUME SCREENING RANKING (Mode: TFIDF)
-============================================================
-RANK  | RESUME FILENAME                | SCORE     
-------------------------------------------------------------
-1     | sample_resume.txt              |   61.46%
-2     | resume_mid.txt                 |   11.87%
-3     | resume_bad.txt                 |    4.82%
-============================================================
-```
+## 📊 Demo & Verification
+
+### 1. Keyword Matching (TF-IDF)
+Exact technical match identifying skills like Python, SQL, and Git.
+![TF-IDF Match](screenshots/Screenshot%202026-03-03%20at%206.39.31 PM.png)
+
+### 2. Semantic Matching (BERT)
+Conceptual matching where the system understands that "AI" and "Artificial Intelligence" are related.
+![Semantic Match](screenshots/Screenshot%202026-03-03%20at%206.40.37 PM.png)
+
+### 3. Batch Ranking
+The system ranking multiple resumes simultaneously and flagging the best candidates.
+![Batch Ranking](screenshots/Screenshot%202026-03-03%20at%206.41.26 PM.png)
 
 ## 🧠 Design Philosophy
 This system addresses the "Black Box" problem in AI screening. By providing both a **Keyword matching** mode (for strict requirements) and a **Semantic mode** (for talent discovery), it gives recruiters a balanced toolkit.
