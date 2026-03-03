@@ -73,3 +73,6 @@ The system ranking multiple resumes simultaneously and flagging the best candida
 
 ## 🧠 Design Philosophy
 This system addresses the "Black Box" problem in AI screening. By providing both a **Keyword matching** mode (for strict requirements) and a **Semantic mode** (for talent discovery), it gives recruiters a balanced toolkit.
+
+## Author:
+Saumya Jain
