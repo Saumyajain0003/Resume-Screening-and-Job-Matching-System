@@ -4,6 +4,34 @@ from typing import Dict, List
 # Load the lightweight English model
 try:
     nlp = spacy.load("en_core_web_sm")
+    # Add custom entity ruler for Tech Skills
+    if not nlp.has_pipe("entity_ruler"):
+        ruler = nlp.add_pipe("entity_ruler", before="ner")
+        patterns = [
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "python"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "java"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "c++"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "c#"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "javascript"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "typescript"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "aws"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "docker"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "kubernetes"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "react"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "angular"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "vue"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "sql"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "nosql"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "machine"}, {"LOWER": "learning"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "data"}, {"LOWER": "science"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "artificial"}, {"LOWER": "intelligence"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "nlp"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "git"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "django"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "flask"}]},
+            {"label": "TECH_SKILL", "pattern": [{"LOWER": "fastapi"}]}
+        ]
+        ruler.add_patterns(patterns)
 except OSError:
     # Fallback if the user hasn't downloaded the model yet
     nlp = None
@@ -19,7 +47,8 @@ def extract_entities(text: str) -> Dict[str, List[str]]:
     
     entities = {
         "organizations": [],
-        "locations": []
+        "locations": [],
+        "tech_skills": []
     }
 
     for ent in doc.ents:
@@ -30,6 +59,9 @@ def extract_entities(text: str) -> Dict[str, List[str]]:
         elif ent.label_ in ["GPE", "LOC"]:
             if ent.text not in entities["locations"]:
                 entities["locations"].append(ent.text)
+        elif ent.label_ == "TECH_SKILL":
+            if ent.text not in entities["tech_skills"]:
+                entities["tech_skills"].append(ent.text)
 
     return entities
 

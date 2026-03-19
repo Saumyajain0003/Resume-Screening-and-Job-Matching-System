@@ -21,7 +21,7 @@ def compute_similarity(resume_text: str, job_description_text: str, skill_weight
         similarity_score (float): The cosine similarity score.
         tfidf_df (DataFrame): A dataframe showing the TF-IDF weights.
     """
-    vectorizer = TfidfVectorizer()
+    vectorizer = TfidfVectorizer(ngram_range=(1, 2))
     tfidf_matrix = vectorizer.fit_transform([resume_text, job_description_text]).toarray()
     feature_names = vectorizer.get_feature_names_out()
 

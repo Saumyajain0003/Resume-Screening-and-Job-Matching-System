@@ -47,12 +47,15 @@ def display_results(results: List[Dict], mode: str, top_n: int = 1):
 
         # Display Extracted Entities
         if top.get('entities'):
-            orgs = top['entities']['organizations'][:3]
-            locs = top['entities']['locations'][:3]
+            orgs = top['entities'].get('organizations', [])[:3]
+            locs = top['entities'].get('locations', [])[:3]
+            skills = top['entities'].get('tech_skills', [])[:5]
             if orgs:
                 print(f"Top Orgs: {', '.join(orgs)}")
             if locs:
                 print(f"Locations: {', '.join(locs)}")
+            if skills:
+                print(f"Tech Skills found via NER: {', '.join(skills)}")
 
         print(f"Status: ", end="")
         if top['score'] > 0.4:
