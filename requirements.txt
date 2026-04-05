@@ -3,3 +3,6 @@ nltk
 pandas
 sentence-transformers
 spacy
+fastapi
+uvicorn
+pydantic
