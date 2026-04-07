@@ -6,6 +6,7 @@ from src.matching import compute_similarity, compute_semantic_similarity, get_mo
 from src.ner import extract_entities
 import math
 from threading import Thread
+from sentence_transformers import SentenceTransformer
 
 app = FastAPI(
     title="AI Resume Screening API",
@@ -157,3 +158,15 @@ if __name__ == "__main__":
     import uvicorn
     # To run this script directly for debugging
     uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True, workers=2)
+
+model = None
+
+def get_model():
+    """
+    Lazily loads the SentenceTransformer model.
+    """
+    global model
+    if model is None:
+        # Use a smaller model to reduce size
+        model = SentenceTransformer('paraphrase-MiniLM-L3-v2')
+    return model
